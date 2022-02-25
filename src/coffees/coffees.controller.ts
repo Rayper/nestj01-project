@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
 import { response } from 'express';
 
 @Controller('coffees')
@@ -32,5 +32,16 @@ export class CoffeesController {
     // kalau pada Body ditambahin sebuah string sebagai validasi, maka akan hanya me-return string name tersebut
     create(@Body() body) {
         return body;
+    }
+
+    @Patch(':id')
+    // parameter id dan body
+    update(@Param('id') id: string, @Body() body) {
+        return `this action updates #${id} coffee`;
+    }
+
+    @Delete()
+    remove(@Param('id') id: string) {
+        return `this action removes #${id} coffee`;
     }
 }
