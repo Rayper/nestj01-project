@@ -8,7 +8,7 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 export class CoffeesController {
 
     // readonly karena kita hanya menggunakan service dan tidak melakukan modify
-    constructor(private readonly coffeesService: CoffeesService) {
+    constructor(private readonly coffeeService: CoffeesService) {
 
     }
 
@@ -24,7 +24,7 @@ export class CoffeesController {
         // const {limit, offset} = paginationQuery;
         // return `return all coffees with many flavors. Limit : ${limit}, offset : ${offset}`;
         // cara test-nya : http://localhost:3000/coffees?limit=10&offset=5
-        return this.coffeesService.findAll();    
+        return this.coffeeService.findAll();    
     }
 
     @Get(':id')
@@ -35,8 +35,8 @@ export class CoffeesController {
     // pada porsi parameters
     findOne(@Param('id') id: number) {  
         // return `this action returns #${id} coffee`;
-        console.log(typeof id);
-        return this.coffeesService.findOne('' + id);
+        // console.log(typeof id);
+        return this.coffeeService.findOne('' + id);
     }
 
     @Post()
@@ -48,19 +48,19 @@ export class CoffeesController {
     create(@Body() createCoffeDto: CreateCoffeeDto) {
         console.log(createCoffeDto instanceof CreateCoffeeDto);
         // return body;
-        return this.coffeesService.create(createCoffeDto);
+        return this.coffeeService.create(createCoffeDto);
     }
 
     @Patch(':id')
     // parameter id dan body
     update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
         // return `this action updates #${id} coffee`;
-        return this.coffeesService.update(id, UpdateCoffeeDto);
+        return this.coffeeService.update(id, updateCoffeeDto);
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
         // return `this action removes #${id} coffee`;
-        return this.coffeesService.remove(id);
+        return this.coffeeService.remove(id);
     }
 }
