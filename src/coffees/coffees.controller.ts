@@ -40,7 +40,7 @@ export class CoffeesController {
 
     @Post()
     // HttpStatus.namaStatusnya sudah disediakan Nest jadi tinggal pilih
-    @HttpCode(HttpStatus.GONE)
+    // @HttpCode(HttpStatus.GONE)
     // Body -> data / request yang kita kirimkan
     // kalau pada Body ditambahin sebuah string sebagai validasi, maka akan hanya me-return string name tersebut
     create(@Body() createCoffeDto: CreateCoffeeDto) {
