@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { response } from 'express';
 import { CoffeesService } from './coffees.service';
+import { CreateCoffeeDto } from './dto/create-coffee.dto';
+import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -41,16 +43,16 @@ export class CoffeesController {
     @HttpCode(HttpStatus.GONE)
     // Body -> data / request yang kita kirimkan
     // kalau pada Body ditambahin sebuah string sebagai validasi, maka akan hanya me-return string name tersebut
-    create(@Body() body) {
+    create(@Body() createCoffeDto: CreateCoffeeDto) {
         // return body;
-        return this.coffeesService.create(body);
+        return this.coffeesService.create(createCoffeDto);
     }
 
     @Patch(':id')
     // parameter id dan body
-    update(@Param('id') id: string, @Body() body) {
+    update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
         // return `this action updates #${id} coffee`;
-        return this.coffeesService.update(id, body);
+        return this.coffeesService.update(id, UpdateCoffeeDto);
     }
 
     @Delete(':id')
