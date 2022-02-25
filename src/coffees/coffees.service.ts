@@ -10,6 +10,12 @@ export class CoffeesService {
             name: "Raihan",
             brand: "Rayper",
             flavors: ['chocolate', 'cookies n cream']
+        },
+        {
+            "id": 2,
+            "name": "Kiko",
+            "brand": "Kiko CoffeeShop",
+            "flavors": ["Vanilla", "Green Tea"]
         }
     ];
 
@@ -32,6 +38,7 @@ export class CoffeesService {
 
     create(creaCoffeeDto: any) {
         this.coffees.push(creaCoffeeDto);
+        return creaCoffeeDto;
     }
 
     update(id: string, updateCoffeDto: any) {
