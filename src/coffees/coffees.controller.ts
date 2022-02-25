@@ -33,9 +33,10 @@ export class CoffeesController {
     // terkadang kita tidak ingin mengakses semua parameter pada object
     // dengan itu kita bisa menggunakan @Param decorator, untuk mendapatkan opsi untuk passing pada string 
     // pada porsi parameters
-    findOne(@Param('id') id: string) {
+    findOne(@Param('id') id: number) {  
         // return `this action returns #${id} coffee`;
-        return this.coffeesService.findOne(id);
+        console.log(typeof id);
+        return this.coffeesService.findOne('' + id);
     }
 
     @Post()
@@ -43,7 +44,9 @@ export class CoffeesController {
     // @HttpCode(HttpStatus.GONE)
     // Body -> data / request yang kita kirimkan
     // kalau pada Body ditambahin sebuah string sebagai validasi, maka akan hanya me-return string name tersebut
+    // seperti ini @Body('name')
     create(@Body() createCoffeDto: CreateCoffeeDto) {
+        console.log(createCoffeDto instanceof CreateCoffeeDto);
         // return body;
         return this.coffeesService.create(createCoffeDto);
     }
