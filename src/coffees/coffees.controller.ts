@@ -1,20 +1,28 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { response } from 'express';
+import { CoffeesService } from './coffees.service';
 
 @Controller('coffees')
 export class CoffeesController {
 
+    // readonly karena kita hanya menggunakan service dan tidak melakukan modify
+    constructor(private readonly coffeesService: CoffeesService) {
+
+    }
+
     @Get()
-    // @Res -> Mengirim Response
-    // findAll(@Res() response) {
-        findAll(@Query() paginationQuery) {
+    findAll() {
+        // @Res -> Mengirim Response
+        // findAll(@Res() response) {
+        // findAll(@Query() paginationQuery) {
         // kalau pakai code seperti ini, akan lebih sulit untuk ditest, karena kehilangan compability dengan Nest Features
         // yang bergantung dengan standart response handling seperti interceptors dan @HttpCode
         // selain itu, code kita juga akan menjadi platform dependent
         // response.status(200).send('return all coffees with many flavors');
-        const {limit, offset} = paginationQuery;
-        return `return all coffees with many flavors. Limit : ${limit}, offset : ${offset}`;
-        // cara test-nya : http://localhost:3000/coffees?limit=10&offset=5    
+        // const {limit, offset} = paginationQuery;
+        // return `return all coffees with many flavors. Limit : ${limit}, offset : ${offset}`;
+        // cara test-nya : http://localhost:3000/coffees?limit=10&offset=5
+        return this.coffeesService.findAll();    
     }
 
     @Get(':id')
@@ -24,7 +32,8 @@ export class CoffeesController {
     // dengan itu kita bisa menggunakan @Param decorator, untuk mendapatkan opsi untuk passing pada string 
     // pada porsi parameters
     findOne(@Param('id') id: string) {
-        return `this action returns #${id} coffee`;
+        // return `this action returns #${id} coffee`;
+        return this.coffeesService.findOne(id);
     }
 
     @Post()
@@ -33,17 +42,20 @@ export class CoffeesController {
     // Body -> data / request yang kita kirimkan
     // kalau pada Body ditambahin sebuah string sebagai validasi, maka akan hanya me-return string name tersebut
     create(@Body() body) {
-        return body;
+        // return body;
+        return this.coffeesService.create(body);
     }
 
     @Patch(':id')
     // parameter id dan body
     update(@Param('id') id: string, @Body() body) {
-        return `this action updates #${id} coffee`;
+        // return `this action updates #${id} coffee`;
+        return this.coffeesService.update(id, body);
     }
 
-    @Delete()
+    @Delete(':id')
     remove(@Param('id') id: string) {
-        return `this action removes #${id} coffee`;
+        // return `this action removes #${id} coffee`;
+        return this.coffeesService.remove(id);
     }
 }
