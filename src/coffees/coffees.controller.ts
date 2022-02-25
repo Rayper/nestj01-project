@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { response } from 'express';
 
 @Controller('coffees')
@@ -7,12 +7,14 @@ export class CoffeesController {
     @Get()
     // @Res -> Mengirim Response
     // findAll(@Res() response) {
-        findAll() {
+        findAll(@Query() paginationQuery) {
         // kalau pakai code seperti ini, akan lebih sulit untuk ditest, karena kehilangan compability dengan Nest Features
         // yang bergantung dengan standart response handling seperti interceptors dan @HttpCode
         // selain itu, code kita juga akan menjadi platform dependent
         // response.status(200).send('return all coffees with many flavors');
-        return 'return all coffees with many flavors';    
+        const {limit, offset} = paginationQuery;
+        return `return all coffees with many flavors. Limit : ${limit}, offset : ${offset}`;
+        // cara test-nya : http://localhost:3000/coffees?limit=10&offset=5    
     }
 
     @Get(':id')
