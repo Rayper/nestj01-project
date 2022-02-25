@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { Coffee } from './entities/coffee.entity';
 
 @Injectable()
@@ -18,7 +18,16 @@ export class CoffeesService {
     }
 
     findOne(id: string) {
-        return this.coffees.find(item => item.id === +id);
+        // dipakai ketika error terjadi di code kita yang sangat banyak baris code nya maupun error dari third app
+        // throw 'A Random Error';
+        const coffee = this.coffees.find(item => item.id === +id);
+        // jika coffe yang dicari gak ada, throw error
+        if(!coffee) {
+            // throw new HttpException(`Coffe #${id} not found`, HttpStatus.NOT_FOUND);
+            // bisa juga dengan cara 
+            throw new NotFoundException(`Coffe #${id} not found`);
+        }
+        return coffee;
     }
 
     create(creaCoffeeDto: any) {
