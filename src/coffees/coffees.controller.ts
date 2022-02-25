@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -16,5 +16,12 @@ export class CoffeesController {
     // pada porsi parameters
     findOne(@Param('id') id: string) {
         return `this action returns #${id} coffee`;
+    }
+
+    @Post()
+    // Body -> data / request yang kita kirimkan
+    // kalau pada Body ditambahin sebuah string sebagai validasi, maka akan hanya me-return string name tersebut
+    create(@Body() body) {
+        return body;
     }
 }
