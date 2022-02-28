@@ -11,7 +11,11 @@ async function bootstrap() {
     // set ini ke true, karena pada saat kita buat createCoffeesdto: CreateCoffeesDto
     // createCoffeesdto bukan instance dari class CreateCoffeeDto
     // selain itu, transform jgau dapat otomatis menconvert paramter sebuah method menjadi sesuai yang kita mau
-    transform: true
+    transform: true,
+    // alternative untuk @Type(() => Number)
+    transformOptions: {
+        enableImplicitConversion: true      
+    }
   }));
   await app.listen(3000);
 }
