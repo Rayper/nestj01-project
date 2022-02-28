@@ -1,5 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
+// Index dapat membantu mempercepat proses seperti contoh ketika ada request untuk search by Name
+@Index(['name', 'type'])
 @Entity()
 export class Event {
     @PrimaryGeneratedColumn()
