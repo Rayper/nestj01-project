@@ -12,6 +12,9 @@ export class Coffee{
     @Column()
     brand: string;
 
+    @Column({default: 0}) 
+    recommendations: number;
+
     // seperti ini karena dia array of string
     // @Column('json', {nullable: true})
     @JoinTable({
