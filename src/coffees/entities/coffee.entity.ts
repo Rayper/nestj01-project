@@ -21,7 +21,10 @@ export class Coffee{
     @ManyToMany(
         type => Flavor, 
         (flavor) => flavor.coffees,
-        
+        {
+            // akan otomatis insert flavors pada saat membuat coffees
+            cascade: true // ['insert']
+        }
         )
-    flavors: string[];
+    flavors: Flavor[];
 }
