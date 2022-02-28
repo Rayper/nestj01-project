@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { response } from 'express';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -13,10 +14,10 @@ export class CoffeesController {
     }
 
     @Get()
-    findAll() {
+    // findAll() {
         // @Res -> Mengirim Response
         // findAll(@Res() response) {
-        // findAll(@Query() paginationQuery) {
+        findAll(@Query() paginationQuery: PaginationQueryDto) {
         // kalau pakai code seperti ini, akan lebih sulit untuk ditest, karena kehilangan compability dengan Nest Features
         // yang bergantung dengan standart response handling seperti interceptors dan @HttpCode
         // selain itu, code kita juga akan menjadi platform dependent
@@ -24,7 +25,7 @@ export class CoffeesController {
         // const {limit, offset} = paginationQuery;
         // return `return all coffees with many flavors. Limit : ${limit}, offset : ${offset}`;
         // cara test-nya : http://localhost:3000/coffees?limit=10&offset=5
-        return this.coffeeService.findAll();    
+        return this.coffeeService.findAll(paginationQuery);    
     }
 
     @Get(':id')
