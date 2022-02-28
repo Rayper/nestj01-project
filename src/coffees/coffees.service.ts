@@ -28,13 +28,13 @@ export class CoffeesService {
     ){}
 
     findAll() {
-        return this.coffeeRepository.find();
+        return this.coffeeRepository.find({relations: ['flavors']});
     }
 
     async findOne(id: string) {
         // dipakai ketika error terjadi di code kita yang sangat banyak baris code nya maupun error dari third app
         // throw 'A Random Error';
-        const coffee = await this.coffeeRepository.findOne(id);
+        const coffee = await this.coffeeRepository.findOne(id , {relations: ['flavors']});
         // jika coffe yang dicari gak ada, throw error
         if(!coffee) {
             // throw new HttpException(`Coffe #${id} not found`, HttpStatus.NOT_FOUND);
