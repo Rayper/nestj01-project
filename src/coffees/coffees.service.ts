@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigService, ConfigType } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { create } from 'domain';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import coffeesConfig from 'src/config/coffees.config';
 import { Event } from 'src/events/entities/event.entity';
 import { Connection, Repository } from 'typeorm';
 import { COFFEE_BRANDS } from './coffees.constants';
@@ -25,18 +26,20 @@ export class CoffeesService {
         private readonly connection: Connection,
         private readonly configService: ConfigService,
         // ini cara inject dependency useValue dan providers
-        // @Inject(COFFEE_BRANDS) coffeeBrands: string[], 
+        @Inject(COFFEE_BRANDS) coffeeBrands: string[], 
+        // ini cara alternative namespace configuration
+        // @Inject(coffeesConfig.KEY)
+        // configType -> helper type 
+        // dengan begitu ketika tidak perlu menggunakan get dan dot notation ketika akan akses seuatu properties dari sebuah object
+        // private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>, 
     ){
         // cek untuk providers transient dan request scoped
         // console.log("CoffeeService instantiated");
-        // console.log(coffeeBrands);
+        console.log(coffeeBrands);
         // print database host yang kita gunakan
         // parameter kedua adalah default value yang bisa kita tentukan
         // const databaseHost = this.configService.get<string>('DATABASE_HOST', 'localhost');
-        // ngambil properties host dari object database yang ada pada appconfig
-        // namun menggunakan ini akan riskan menimbulakn error seperti typo
-        const databaseHost = this.configService.get('database.host', 'localhost');
-        console.log(databaseHost);
+        // console.log(coffeesConfiguration);
     }
 
     findAll(paginationQuery: PaginationQueryDto) {
