@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Patch, Post, Query, Res } from '@nestjs/common';
+import { REQUEST } from '@nestjs/core';
 import { response } from 'express';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
@@ -10,7 +11,8 @@ export class CoffeesController {
 
     // readonly karena kita hanya menggunakan service dan tidak melakukan modify
     constructor(private readonly coffeeService: CoffeesService) {
-
+        // test untuk scope Request
+        console.log("CoffeesController created!")
     }
 
     @Get()
