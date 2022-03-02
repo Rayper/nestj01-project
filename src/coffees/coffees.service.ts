@@ -34,6 +34,7 @@ export class CoffeesService {
         // parameter kedua adalah default value yang bisa kita tentukan
         // const databaseHost = this.configService.get<string>('DATABASE_HOST', 'localhost');
         // ngambil properties host dari object database yang ada pada appconfig
+        // namun menggunakan ini akan riskan menimbulakn error seperti typo
         const databaseHost = this.configService.get('database.host', 'localhost');
         console.log(databaseHost);
     }
