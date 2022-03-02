@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { create } from 'domain';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
@@ -11,7 +12,8 @@ import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 
 // ketika kita inject sebenarnya kita set scopenya scope.Default
-@Injectable({scope: Scope.REQUEST})
+@Injectable()
+// @Injectable({scope: Scope.REQUEST})
 // @Injectable({scope: Scope.TRANSIENT})
 export class CoffeesService {
     // pakai sebagai database
@@ -36,12 +38,17 @@ export class CoffeesService {
         @InjectRepository(Flavor)
         private readonly flavorRepository: Repository<Flavor>,
         private readonly connection: Connection,
+        private readonly configService: ConfigService,
         // ini cara inject dependency useValue dan providers
-        @Inject(COFFEE_BRANDS) coffeeBrands: string[], 
+        // @Inject(COFFEE_BRANDS) coffeeBrands: string[], 
     ){
-        // cek untuk providers transient
-        console.log("CoffeeService instantiated");
+        // cek untuk providers transient dan request scoped
+        // console.log("CoffeeService instantiated");
         // console.log(coffeeBrands);
+        // print database host yang kita gunakan
+        // parameter kedua adalah default value yang bisa kita tentukan
+        const databaseHost = this.configService.get<string>('DATABASE_HOST', 'localhost');
+        console.log(databaseHost);
     }
 
     findAll(paginationQuery: PaginationQueryDto) {

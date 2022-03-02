@@ -12,7 +12,7 @@ export class CoffeesController {
     // readonly karena kita hanya menggunakan service dan tidak melakukan modify
     constructor(private readonly coffeeService: CoffeesService) {
         // test untuk scope Request
-        console.log("CoffeesController created!")
+        // console.log("CoffeesController created!")
     }
 
     @Get()
