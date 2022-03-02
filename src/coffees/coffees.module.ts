@@ -1,7 +1,6 @@
-import { Injectable, Module } from '@nestjs/common';
+import { Injectable, Module, Scope } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Event } from 'src/events/entities/event.entity';
-import { Connection } from 'typeorm';
 import { COFFEE_BRANDS } from './coffees.constants';
 import { CoffeesController } from './coffees.controller';
 import { CoffeesService } from './coffees.service';
@@ -14,15 +13,9 @@ import { Flavor } from './entities/flavor.entity';
     providers: [
         CoffeesService,
         { 
-            provide: COFFEE_BRANDS,
-            // ngecek akan menjalankan useFactory ketika database sudah established 
-            useFactory: async (connection: Connection): Promise<string[]> => {
-                const coffeeBrands = await Promise.resolve(['Kopi Janji Jiwa', 'Starbucks']);
-                // console log ini akan di execute setelah console log coffee brands
-                console.log('Async Factory [!]')
-                return coffeeBrands;
-            },
-            inject: [Connection] 
+            provide: COFFEE_BRANDS, 
+            useFactory: async () => ['Starbucks', 'Kopi Janji Jiwa'],
+            // scope: Scope.TRANSIENT 
         },
     ],
     
