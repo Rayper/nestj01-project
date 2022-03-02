@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Patch, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Patch, Post, Query, Res, UsePipes, ValidationPipe } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { response } from 'express';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
@@ -6,6 +6,9 @@ import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
+// bisa juga membuat instance dari sebuah class
+// @UsePipes(new ValidationPipe())
+// @UsePipes(ValidationPipe)
 @Controller('coffees')
 export class CoffeesController {
 
@@ -15,6 +18,8 @@ export class CoffeesController {
         // console.log("CoffeesController created!")
     }
 
+    // bisa juga dipakai dimethod yang kita inginkan
+    // @UsePipes(ValidationPipe)
     @Get()
     // findAll() {
         // @Res -> Mengirim Response
@@ -56,7 +61,8 @@ export class CoffeesController {
 
     @Patch(':id')
     // parameter id dan body
-    update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+    // contoh penggunaan param-scoped pipes yang hanya berfokus pada 1 parameter
+    update(@Param('id') id: string, @Body(ValidationPipe) updateCoffeeDto: UpdateCoffeeDto) {
         // return `this action updates #${id} coffee`;
         return this.coffeeService.update(id, updateCoffeeDto);
     }
