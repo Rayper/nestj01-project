@@ -16,21 +16,6 @@ import { Flavor } from './entities/flavor.entity';
 // @Injectable({scope: Scope.REQUEST})
 // @Injectable({scope: Scope.TRANSIENT})
 export class CoffeesService {
-    // pakai sebagai database
-    // private coffees: Coffee[] = [
-    //     {
-    //         id: 1,
-    //         name: "Raihan",
-    //         brand: "Rayper",
-    //         flavors: ['chocolate', 'cookies n cream']
-    //     },
-    //     {
-    //         "id": 2,
-    //         "name": "Kiko",
-    //         "brand": "Kiko CoffeeShop",
-    //         "flavors": ["Vanilla", "Green Tea"]
-    //     }
-    // ];
     
     constructor(
         @InjectRepository(Coffee)
@@ -47,7 +32,9 @@ export class CoffeesService {
         // console.log(coffeeBrands);
         // print database host yang kita gunakan
         // parameter kedua adalah default value yang bisa kita tentukan
-        const databaseHost = this.configService.get<string>('DATABASE_HOST', 'localhost');
+        // const databaseHost = this.configService.get<string>('DATABASE_HOST', 'localhost');
+        // ngambil properties host dari object database yang ada pada appconfig
+        const databaseHost = this.configService.get('database.host', 'localhost');
         console.log(databaseHost);
     }
 
