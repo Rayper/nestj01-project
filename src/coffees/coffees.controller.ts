@@ -29,15 +29,17 @@ export class CoffeesController {
     // findAll() {
         // @Res -> Mengirim Response
         // findAll(@Res() response) {
-        findAll(@Query() paginationQuery: PaginationQueryDto) {
-        // kalau pakai code seperti ini, akan lebih sulit untuk ditest, karena kehilangan compability dengan Nest Features
-        // yang bergantung dengan standart response handling seperti interceptors dan @HttpCode
-        // selain itu, code kita juga akan menjadi platform dependent
-        // response.status(200).send('return all coffees with many flavors');
-        // const {limit, offset} = paginationQuery;
-        // return `return all coffees with many flavors. Limit : ${limit}, offset : ${offset}`;
-        // cara test-nya : http://localhost:3000/coffees?limit=10&offset=5
-        return this.coffeeService.findAll(paginationQuery);    
+        async findAll(@Query() paginationQuery: PaginationQueryDto) {
+            // untuk trigger interceptorTimeout
+            // await new Promise(resolve => setTimeout(resolve, 5000));
+            // kalau pakai code seperti ini, akan lebih sulit untuk ditest, karena kehilangan compability dengan Nest Features
+            // yang bergantung dengan standart response handling seperti interceptors dan @HttpCode
+            // selain itu, code kita juga akan menjadi platform dependent
+            // response.status(200).send('return all coffees with many flavors');
+            // const {limit, offset} = paginationQuery;
+            // return `return all coffees with many flavors. Limit : ${limit}, offset : ${offset}`;
+            // cara test-nya : http://localhost:3000/coffees?limit=10&offset=5
+            return this.coffeeService.findAll(paginationQuery);    
     }
     
     @Public()
