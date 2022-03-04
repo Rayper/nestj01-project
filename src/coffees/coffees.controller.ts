@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Patch, Post, Query, Res, SetMetadata, UsePipes, ValidationPipe } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { response } from 'express';
+import { Protocol } from 'src/common/decorators/protocol.decorator';
 import { Public } from 'src/common/decorators/public.decorator';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
@@ -30,7 +31,11 @@ export class CoffeesController {
     // findAll() {
         // @Res -> Mengirim Response
         // findAll(@Res() response) {
-        async findAll(@Query() paginationQuery: PaginationQueryDto) {
+        async findAll(
+                @Protocol('defaultValue') protocol: string, 
+                @Query() paginationQuery: PaginationQueryDto) {
+            // test untuk protocol decorator
+            console.log(protocol);
             // untuk trigger interceptorTimeout
             // await new Promise(resolve => setTimeout(resolve, 5000));
             // kalau pakai code seperti ini, akan lebih sulit untuk ditest, karena kehilangan compability dengan Nest Features
