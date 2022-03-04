@@ -3,6 +3,7 @@ import { REQUEST } from '@nestjs/core';
 import { response } from 'express';
 import { Public } from 'src/common/decorators/public.decorator';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -49,7 +50,10 @@ export class CoffeesController {
     // terkadang kita tidak ingin mengakses semua parameter pada object
     // dengan itu kita bisa menggunakan @Param decorator, untuk mendapatkan opsi untuk passing pada string 
     // pada porsi parameters
-    findOne(@Param('id') id: number) {  
+    // test parseInt Pipes
+    findOne(@Param('id', ParseIntPipe) id: number) {  
+        // test untuk parseInt pipes
+        // console.log(id);
         // return `this action returns #${id} coffee`;
         // console.log(typeof id);
         return this.coffeeService.findOne('' + id);
