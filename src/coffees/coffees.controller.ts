@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Patch, Post, Query, Res, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Patch, Post, Query, Res, SetMetadata, UsePipes, ValidationPipe } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { response } from 'express';
+import { Public } from 'src/common/decorators/public.decorator';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
@@ -20,6 +21,10 @@ export class CoffeesController {
 
     // bisa juga dipakai dimethod yang kita inginkan
     // @UsePipes(ValidationPipe)
+    // (Key, Value)
+    // @SetMetadata('isPublic', true)
+    // customer decorators
+    @Public()
     @Get()
     // findAll() {
         // @Res -> Mengirim Response
