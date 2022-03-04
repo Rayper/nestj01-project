@@ -39,7 +39,8 @@ export class CoffeesController {
         // cara test-nya : http://localhost:3000/coffees?limit=10&offset=5
         return this.coffeeService.findAll(paginationQuery);    
     }
-
+    
+    @Public()
     @Get(':id')
     // dengan @param() memungkinkan kita untuk grab all incoming request from parameter
     // dan menggunakanya di dalam function body pada method kita
