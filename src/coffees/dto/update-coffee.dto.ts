@@ -1,4 +1,4 @@
-import { PartialType } from "@nestjs/mapped-types";
+import { PartialType } from "@nestjs/swagger";
 import { CreateCoffeeDto } from "./create-coffee.dto";
 
 // ini cara untuk mengurangi redundant code, jadi dia ngambil semua properties dari create
