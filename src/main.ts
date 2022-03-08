@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { ApiKeyGuard } from './common/guards/api-key.guard';
 import { WrapResponseInterceptor } from './common/interceptors/wrap-response.interceptor';
-
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({
@@ -20,6 +20,16 @@ async function bootstrap() {
         enableImplicitConversion: true      
     }
   }));
+
+
+  const options = new DocumentBuilder()
+  .setTitle('iluvcoffee')
+  .setDescription('Coffee Application')
+  .setVersion('1.0')
+  .build();
+
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
   // app.useGlobalGuards(new ApiKeyGuard());
   app.useGlobalInterceptors(new WrapResponseInterceptor());
   app.useGlobalFilters(new HttpExceptionFilter()); 

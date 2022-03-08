@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Patch, Post, Query, Res, SetMetadata, UsePipes, ValidationPipe } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
+import { ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { response } from 'express';
 import { Protocol } from 'src/common/decorators/protocol.decorator';
 import { Public } from 'src/common/decorators/public.decorator';
@@ -12,6 +13,7 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 // bisa juga membuat instance dari sebuah class
 // @UsePipes(new ValidationPipe())
 // @UsePipes(ValidationPipe)
+@ApiTags('coffees')
 @Controller('coffees')
 export class CoffeesController {
 
@@ -26,6 +28,8 @@ export class CoffeesController {
     // (Key, Value)
     // @SetMetadata('isPublic', true)
     // customer decorators
+    // @ApiResponse({status: 404, description: 'Forbidden.'})
+    @ApiForbiddenResponse({description: 'Forbidden.'})
     @Public()
     @Get()
     // findAll() {
@@ -48,7 +52,7 @@ export class CoffeesController {
             return this.coffeeService.findAll(paginationQuery);    
     }
     
-    @Public()
+    // @Public()
     @Get(':id')
     // dengan @param() memungkinkan kita untuk grab all incoming request from parameter
     // dan menggunakanya di dalam function body pada method kita
