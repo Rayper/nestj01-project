@@ -2,13 +2,13 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Pat
 import { REQUEST } from '@nestjs/core';
 import { ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { response } from 'express';
-import { Protocol } from 'src/common/decorators/protocol.decorator';
-import { Public } from 'src/common/decorators/public.decorator';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
-import { CoffeesService } from './coffees.service';
-import { CreateCoffeeDto } from './dto/create-coffee.dto';
-import { UpdateCoffeeDto } from './dto/update-coffee.dto';
+import { Protocol } from '../common/decorators/protocol.decorator';
+import { Public } from '../common/decorators/public.decorator';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
+import { CoffeesService } from '../coffees/coffees.service';
+import { CreateCoffeeDto } from '../coffees/dto/create-coffee.dto';
+import { UpdateCoffeeDto } from '../coffees/dto/update-coffee.dto';
 
 // bisa juga membuat instance dari sebuah class
 // @UsePipes(new ValidationPipe())
@@ -52,7 +52,7 @@ export class CoffeesController {
             return this.coffeeService.findAll(paginationQuery);    
     }
     
-    // @Public()
+    @Public()
     @Get(':id')
     // dengan @param() memungkinkan kita untuk grab all incoming request from parameter
     // dan menggunakanya di dalam function body pada method kita
