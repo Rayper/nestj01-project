@@ -4,13 +4,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { create } from 'domain';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import coffeesConfig from 'src/config/coffees.config';
-import { Event } from 'src/events/entities/event.entity';
+import { Event } from '../coffees/entities/event.entity';
 import { Connection, Repository } from 'typeorm';
 import { COFFEE_BRANDS } from './coffees.constants';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
-import { Coffee } from './entities/coffee.entity';
-import { Flavor } from './entities/flavor.entity';
+import { Coffee } from '../coffees/entities/coffee.entity';
+import { Flavor } from '../coffees/entities//flavor.entity';
 
 // ketika kita inject sebenarnya kita set scopenya scope.Default
 @Injectable()
@@ -24,9 +24,9 @@ export class CoffeesService {
         @InjectRepository(Flavor)
         private readonly flavorRepository: Repository<Flavor>,
         private readonly connection: Connection,
-        private readonly configService: ConfigService,
+        // private readonly configService: ConfigService,
         // ini cara inject dependency useValue dan providers
-        @Inject(COFFEE_BRANDS) coffeeBrands: string[], 
+        // @Inject(COFFEE_BRANDS) coffeeBrands: string[], 
         // ini cara alternative namespace configuration
         // @Inject(coffeesConfig.KEY)
         // configType -> helper type 
@@ -35,7 +35,7 @@ export class CoffeesService {
     ){
         // cek untuk providers transient dan request scoped
         // console.log("CoffeeService instantiated");
-        console.log(coffeeBrands);
+        // console.log(coffeeBrands);
         // print database host yang kita gunakan
         // parameter kedua adalah default value yang bisa kita tentukan
         // const databaseHost = this.configService.get<string>('DATABASE_HOST', 'localhost');

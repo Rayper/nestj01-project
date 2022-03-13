@@ -21,7 +21,6 @@ async function bootstrap() {
     }
   }));
 
-
   const options = new DocumentBuilder()
   .setTitle('iluvcoffee')
   .setDescription('Coffee Application')
